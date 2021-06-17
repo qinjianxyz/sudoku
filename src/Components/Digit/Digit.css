@@ -1,0 +1,18 @@
+.digit {
+    border-right: 2px salmon solid;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.digit2 {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+input {
+    width: 15px;
+    height: 15px;
+}

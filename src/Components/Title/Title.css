@@ -1,0 +1,11 @@
+.content {
+  text-align: center;
+}
+
+.content ul {
+  list-style-position: inside;
+  text-align: left;
+  margin: auto;
+  display: inline-block;
+  margin-bottom: 10px;
+}
