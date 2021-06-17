@@ -225,7 +225,7 @@ class Board extends React.Component {
       return;
     }
     if (boo2 === false) {
-      alert("There are repetitive values. Invalid input.");
+      alert("Invalid inputs. Repetitive values exist.\nDouble check that inputs are correct.");
       return;
     }
     if (boo1 === true && boo2 === true) {
@@ -243,7 +243,7 @@ class Board extends React.Component {
         });
         return true;
       } else {
-        alert("More than one solution");
+        alert("There are more than one solution.\nPlease check the sudoku is valid.");
         return false;
       }
     }
