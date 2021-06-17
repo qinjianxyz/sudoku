@@ -81,15 +81,19 @@ class Board extends React.Component {
 
   solveSudoku() {
     let grid = this.state.board;
-    let grid2 = grid;
+    let grid2 = this.state.board;
     let solutionNum = 0;
 
-    function checkValidInput() {
+    function convert() {
       for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
           grid[i][j] = Number(grid[i][j]);
         }
       }
+    }
+
+    function checkValidInput() {
+      convert();
       for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
           let temp = grid[i][j];
@@ -225,12 +229,15 @@ class Board extends React.Component {
       return;
     }
     if (boo2 === false) {
-      alert("Invalid inputs. Repetitive values exist.\nDouble check that inputs are correct.");
+      alert(
+        "Invalid inputs. Repetitive values exist.\nDouble check that inputs are correct."
+      );
       return;
     }
     if (boo1 === true && boo2 === true) {
       getCount();
       grid = grid2;
+      convert();
       if (solutionNum < 1) {
         alert(
           "There is no possible solution to this sudoku.\nPlease make sure the sudoku is solvable."
@@ -239,11 +246,14 @@ class Board extends React.Component {
       } else if (solutionNum === 1) {
         solve();
         this.setState({
-          board: grid2,
+          board: grid,
         });
         return true;
       } else {
-        alert("There are more than one solution.\nPlease check the sudoku is valid.");
+        alert(
+          "There are more than one solution.\nPlease check the sudoku is valid."
+        );
+        this.reset();
         return false;
       }
     }
