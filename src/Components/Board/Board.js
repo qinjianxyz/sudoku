@@ -81,6 +81,8 @@ class Board extends React.Component {
 
   solveSudoku() {
     let grid = this.state.board;
+    let grid2 = grid;
+    let solutionNum = 0;
 
     function checkValidInput() {
       for (let i = 0; i < 9; i++) {
@@ -163,6 +165,34 @@ class Board extends React.Component {
       return true;
     }
 
+    function getCount() {
+      if (isSolved() === true) {
+        return true;
+      }
+
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (grid[i][j] === 0) {
+            for (let n = 1; n < 10; n++) {
+              if (possible(i, j, n) === true) {
+                grid[i][j] = n;
+                if (getCount() === true) {
+                  solutionNum++;
+                  if (solutionNum > 1) {
+                    break;
+                  }
+                  grid[i][j] = 0;
+                  return false;
+                }
+                grid[i][j] = 0;
+              }
+            }
+            return false;
+          }
+        }
+      }
+    }
+
     function solve() {
       if (isSolved() === true) {
         return true;
@@ -185,23 +215,38 @@ class Board extends React.Component {
       }
     }
 
-    if (checkValidInput() === false) {
+    // Count how many possible solutions
+    const boo1 = checkValidInput();
+    const boo2 = checkDuplicate();
+    if (boo1 === false) {
       alert(
         "Invalid inputs.\nIntegers should be between 1 - 9.\nNo special characters allowed."
       );
       return;
     }
-    if (checkDuplicate() === false) {
+    if (boo2 === false) {
       alert("There are repetitive values. Invalid input.");
       return;
     }
-    if (solve() === false) {
-      alert("There is no possible solution to this sudoku.\nPlease make sure the sudoku is solvable.");
-      return;
+    if (boo1 === true && boo2 === true) {
+      getCount();
+      grid = grid2;
+      if (solutionNum < 1) {
+        alert(
+          "There is no possible solution to this sudoku.\nPlease make sure the sudoku is solvable."
+        );
+        return false;
+      } else if (solutionNum === 1) {
+        solve();
+        this.setState({
+          board: grid2,
+        });
+        return true;
+      } else {
+        alert("More than one solution");
+        return false;
+      }
     }
-    this.setState({
-      board: grid,
-    });
   }
 
   digitInput(x, y, n) {
@@ -238,4 +283,5 @@ class Board extends React.Component {
     );
   }
 }
+
 export default Board;
