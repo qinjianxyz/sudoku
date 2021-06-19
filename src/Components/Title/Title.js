@@ -4,7 +4,7 @@ import './Title.css';
 const Title = () => {
   return (
     <div className='content'>
-      <h3>Sudoku Solver</h3>
+      <h1>Sudoku Solver</h1>
       <ul >
         <b>Instructions:</b>
         <li>Input 0 means the value is unknown</li>
